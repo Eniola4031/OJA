@@ -16,7 +16,7 @@ contract oja is ReentrancyGuard{
 //determines the owner of the contract
      address payable owner;
 
-     uint256 listingPrice = 0.045ether;
+     uint256 listingPrice = 0.045 ether;
 
      constructor(){
          //set the owner
@@ -47,7 +47,7 @@ struct Bids{
 mapping (uint256 => marketToken) private tokenItems;
 
 //listen to events from front-end applications
-event marketTokenMinted(uint indexed tokenId, address indexed nftContract, uint256 indexed tokenId, address seller, address buyer, uint256 price, bool sold);
+event marketTokenMinted(uint indexed itemId, address indexed nftContract, uint256 indexed tokenId, address seller, address buyer, uint256 price, bool sold);
 
 //get the listing price
 function getListingPrice()public view returns(uint256){
@@ -106,7 +106,7 @@ for(uint i=0;i< itemsCount;i++){
 return items;
 
 }
-function fetchMyNfts() public view return(marketToken[] memory){
+function fetchMyNfts() public view returns(marketToken[] memory){
     uint totalItemCount = _tokenId.current();
      uint itemCount = 0;
      uint currentIndex = 0;

@@ -25,7 +25,7 @@ function mintToken(string memory tokenURI) public returns(uint){
     uint256 newItemId = _tokenIds.current();
     _mint(msg.sender,newItemId);
     //set the token URI; id and uri
-    _setTokenUri(newItemId, tokenURI);
+    _setTokenURI(newItemId, tokenURI);
     //give the marketplace the approval to transact between users
     setApprovalForAll(contractAddress, true);
     //mint the token and set it for sale - return the id to do so
