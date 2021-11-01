@@ -114,9 +114,7 @@ function fetchMyNfts() public view returns(marketToken[] memory){
      for(uint i =0; i < totalItemCount;i++){
          if(tokenItems[i+1].owner == msg.sender){
              itemCount += 1;
-
          }
-
      }
      //second loop through the amount you have pruchased with itemcount. check to see if the owner address is equal to msg.sender
      marketToken[] memory items = new marketToken[](itemCount);
@@ -130,6 +128,6 @@ currentIndex += 1;
 
      }        
     }
-
+ return items;
 }
 }

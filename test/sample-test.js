@@ -49,11 +49,7 @@ items = await Promise.all(items.map(async i => {
   }
   return item;
 }))
-
 //test out all items
 console.log('items',items)
-
-
-
   });
   });
