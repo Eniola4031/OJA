@@ -55,7 +55,7 @@ function getListingPrice()public view returns(uint256){
 
 }
 //nonReentrant is a modifier to prevent reentry attack
-function mintMarketItem(address nftContract, uint tokenId, uint256 price) public payable nonReentrant{
+function makeMarketItem(address nftContract, uint tokenId, uint256 price) public payable nonReentrant{
 require(price > 0, "price must be at least one wei");
 require(msg.value == listingPrice, "price must be equal to listing price");
 _tokenIds.increment();

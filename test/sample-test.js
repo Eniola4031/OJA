@@ -24,9 +24,11 @@ await nft.mintToken('https-t2')
 await nft.mintToken('https-t3')
 await nft.mintToken('https-t4')
 
-await market.makeMarketItem(nftContractAddress, 1, auctionPrice, {value: lisitngPrice})
-await market.makeMarketItem(nftContractAddress, 2, auctionPrice, {value: lisitngPrice})
+await market.makeMarketItem(nftContractAddress, 1, auctionPrice, {value: listingPrice})
+await market.makeMarketItem(nftContractAddress, 2, auctionPrice, {value: listingPrice})
 
+//test for different addresses from different users- test account
+//return an arrray of however many addresses
 const [_, buyerAddress]= await ethers.getSigners()
 
 //create a market sale with address, id and price
