@@ -9,7 +9,7 @@ import 'hardhat/console.sol';
 
 contract oja is ReentrancyGuard{
     //counters will keep track of items minting,transactions, sold tokens. total tokens(tokenid)
-    using Counters for Counters.Counters; 
+    using Counters for Counters.Counter; 
     Counters.Counter private  _tokenIds;
      Counters.Counter private  _tokensSold;
 
@@ -55,10 +55,10 @@ function getListingPrice()public view returns(uint256){
 
 }
 //nonReentrant is a modifier to prevent reentry attack
-function mintMarketItem(address nftContract, uint tokenId, uint price) public payable nonReentrant{
+function mintMarketItem(address nftContract, uint tokenId, uint256 price) public payable nonReentrant{
 require(price > 0, "price must be at least one wei");
 require(msg.value == listingPrice, "price must be equal to listing price");
-_tokenIds++;
+_tokenIds.increment();
 uint itemId = _tokenIds.current();
 
 //putting it up for sale - bool - no owner
@@ -72,7 +72,7 @@ emit marketTokenMinted(itemId ,nftContract, tokenId, msg.sender, address(0) , pr
 }
 
 function createMarketSale(address nftContract, uint itemId) public payable nonReentrant{
-    uint price = tokenItems[ItemId].price;
+    uint price = tokenItems[itemId].price;
     uint tokenId = tokenItems[itemId].tokenId;
     require(msg.value == price, "please submit the asking price in other to continue");
     //transfer the amount to the seller
@@ -80,20 +80,20 @@ function createMarketSale(address nftContract, uint itemId) public payable nonRe
     //transfer the token from contract address to the buyer
     IERC721(nftContract).transferFrom(address(this),msg.sender,tokenId);
     tokenItems[itemId].sold = true;
-    _tokensSold++;
+    _tokensSold.increment();
 
-    payable(owner).transfer(getListingPrice);
+    payable(owner).transfer(getListingPrice());
 
 }
 //FUCNTION TO FETMARKETITEMS  - MINTING, BUYING AND SELLING
-function fetchMarketTokens()public view returns (MarketToken[] memory){
+function fetchMarketTokens()public view returns (marketToken[] memory){
 uint itemCount = _tokenIds.current();
-uint unsoldItemCount = _tokenIds.current() - _tokenSold.current();
+uint unsoldItemCount = _tokenIds.current() - _tokensSold.current();
 uint currentIndex = 0;
 
 //looping over the number of items created(if number has not been sold populate the array)
 marketToken[] memory items = new marketToken[](unsoldItemCount);
-for(uint i=0;i< itemsCount;i++){
+for(uint i=0;i< itemCount;i++){
     if(
         tokenItems[i+1].owner == address(0)
     ){
@@ -107,7 +107,7 @@ return items;
 
 }
 function fetchMyNfts() public view returns(marketToken[] memory){
-    uint totalItemCount = _tokenId.current();
+    uint totalItemCount = _tokenIds.current();
      uint itemCount = 0;
      uint currentIndex = 0;
 
