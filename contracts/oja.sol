@@ -33,15 +33,15 @@ struct marketToken{
     uint256 price;
     bool sold;
 }
-struct Bids{
-    uint256 startDate;
-    uint256 endDate;
-    uint256 minBidPrice;
-    uint256 currentBidPrice;
-    marketToken bidder;
-    uint256[] totalBiddings;
-    address[] currentBidders;
-}
+// struct Bids{
+//     uint256 startDate;
+//     uint256 endDate;
+//     uint256 minBidPrice;
+//     uint256 currentBidPrice;
+//     marketToken bidder;
+//     uint256[] totalBiddings;
+//     address[] currentBidders;
+// }
 
 //tokenId returns which marketToken - fetch which one it is
 mapping (uint256 => marketToken) private tokenItems;
@@ -68,7 +68,6 @@ tokenItems[itemId] = marketToken(itemId, nftContract,  tokenId,  payable (msg.se
 IERC721(nftContract).transferFrom(msg.sender, address(this),tokenId);
 
 emit marketTokenMinted(itemId ,nftContract, tokenId, msg.sender, address(0) , price , false);
-
 }
 
 function createMarketSale(address nftContract, uint itemId) public payable nonReentrant{
@@ -112,7 +111,7 @@ function fetchMyNfts() public view returns(marketToken[] memory){
      uint currentIndex = 0;
 
      for(uint i =0; i < totalItemCount;i++){
-         if(tokenItems[i+1].owner == msg.sender){
+         if(tokenItems[i + 1].owner == msg.sender){
              itemCount += 1;
          }
      }
