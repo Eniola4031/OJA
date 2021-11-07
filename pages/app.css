@@ -4,6 +4,9 @@ box-sizing: border-box;
 
 body {
     background-image: url(../images/bg-image.jpeg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: contain;
 }
 
 a {
