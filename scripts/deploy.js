@@ -4,16 +4,25 @@ const fs = require('fs')
 
 async function main() {
  
-  const oja = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const OjaMarket = await hre.ethers.getContractFactory("Oja");
+  const ojaMarket = await Oja.deploy();
+  await ojaMarket.deployed();
+  console.log("NftMarket deployed to:", ojaMarket.address);
 
-  await greeter.deployed();
+  const NFT = await hre.ethers.getContractFactory("NFT");
+  const nft = await NFT.deploy(nftmarketaddress);
+  await nft.deployed();
+  console.log("NFT coontract deployed to:", ojaMarket.address);
 
-  console.log("Greeter deployed to:", greeter.address);
+  let config = '
+
+  export const nftMarketAddress = ${nftMarket.address}
+  export const nftAddress = ${nftAddress.address}'
+
+  let data = JSON.stringify(config)
+  fs.writeFileSync
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main()
   .then(() => process.exit(0))
   .catch((error) => {

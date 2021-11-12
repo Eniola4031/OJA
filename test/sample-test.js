@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("oja", function () {
+describe("Oja", function () {
   it("should mint and trade NFTs", async function () {
 const Market = await ethers.getContractFactory('oja')
 const market = await Market.deploy()

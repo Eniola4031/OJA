@@ -7,7 +7,7 @@ import '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
 import 'hardhat/console.sol';
 
-contract oja is ReentrancyGuard{
+contract Oja is ReentrancyGuard{
     //counters will keep track of items minting,transactions, sold tokens. total tokens(tokenid)
     using Counters for Counters.Counter; 
     Counters.Counter private  _tokenIds;
