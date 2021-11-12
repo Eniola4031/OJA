@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 
 describe("Oja", function () {
   it("should mint and trade NFTs", async function () {
-const Market = await ethers.getContractFactory('oja')
+const Market = await ethers.getContractFactory('Oja')
 const market = await Market.deploy()
 await market.deployed()
 const marketAddress = market.address

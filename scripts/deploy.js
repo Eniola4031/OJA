@@ -4,23 +4,23 @@ const fs = require('fs')
 
 async function main() {
  
-  const OjaMarket = await hre.ethers.getContractFactory("Oja");
-  const ojaMarket = await Oja.deploy();
-  await ojaMarket.deployed();
-  console.log("NftMarket deployed to:", ojaMarket.address);
+  const NftMarket = await hre.ethers.getContractFactory("Oja");
+  const nftMarket = await NFTMarket.deploy();
+  await nftMarket.deployed();
+  console.log("NftMarket deployed to:", nftMarket.address);
 
   const NFT = await hre.ethers.getContractFactory("NFT");
-  const nft = await NFT.deploy(nftmarketaddress);
+  const nft = await NFT.deploy(nftMarket.address);
   await nft.deployed();
-  console.log("NFT coontract deployed to:", ojaMarket.address);
+  console.log("NFT coontract deployed to:", nftMarket.address);
 
-  let config = '
-
+  let config = `
   export const nftMarketAddress = ${nftMarket.address}
-  export const nftAddress = ${nftAddress.address}'
+  export const nftAddress = ${nftAddress.address}`
 
   let data = JSON.stringify(config)
-  fs.writeFileSync
+  fs.writeFileSync('config.js', JSON.parse(data))
+
 }
 
 main()
