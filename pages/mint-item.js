@@ -5,6 +5,7 @@ import {create as ipfsHttpClient} from 'ipfs-http-client'
 import{nftAddress, nftMarketAddress} from '../config'
 // in this component, we set the ipfs up to host out nft data of file storage
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
+import {useRouter} from 'next/router'
 import Oja from '../artifacts/contracts/oja.sol/oja.json'
 
 const client= ipfsHttpClient('https://ipfs.infura.io:5001/api/v0',)
@@ -32,7 +33,6 @@ export  default function mintItem(){
                 console.log('error uploading file:', error)
             }
      }
-}
 
 async function createMarket(){
     const {name, price, description} = formInput
@@ -67,9 +67,25 @@ async function createSale(url){
     const price = ethers.utils.parseUnits(formInput.price, 'ether')
     
     //list the item for sale on the marketplace
-    contract = new ethers.Contract(nftMarketAddress, Oja.abi)
+    contract = new ethers.Contract(nftMarketAddress, Oja.abi, signer)
     let listingPrice = await contract.getListingPrice()
     listingPrice = listingPrice.toString()
 
     transaction = await contract.makeMarketItem(nftAddress, tokenId, price, {value: lisitingPrice})
+    await transaction.wait()
+    router.push('./')
+}
+
+return (
+    <div className='flex justify-center'>
+        <div className='w-1/2 flex flex-col pb-12'>
+            <input placeholder='Asset Name' className='mt-8 border rounded p-4' onChange={ e => updateFormInput({...formInput, name: e.target.value})}/>
+            <textarea placeholder='Asset description' className='mt-8 border rounded p-4' onChange={ e => updateFormInput({...formInput, description: e.target.value})}/>
+            <input type='file' name='Asset' className='mt-4' onChange={ e => updateFormInput({...formInput, price: e.target.value})}/>
+            {fileUrl && (
+                <img className='rounded mt-4' width='350px' src={fileUrl}/>  )}
+                <button onClick={createMarket} className='font-bold mt-4 bg-purple-500 text-white rounded p-4 shadow-lg'> Mint NFT</button>
+        </div>
+    </div>
+)
 }
