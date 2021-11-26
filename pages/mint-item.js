@@ -9,6 +9,7 @@ import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 import {useRouter} from 'next/router'
 import Oja from '../artifacts/contracts/oja.sol/oja.json'
 
+
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0',)
 
 export  default function mintItem(){
@@ -56,7 +57,8 @@ async function createSale(url){
     //create the items and list them on the marketplace
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
+    const provider = new ethers.Web3Provider(connection)
+    //const provider = new ethers.providers.Web3Provider(web3.currentProvider)
     const signer = provider.getSigner()
             //we want to create the token
     let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
@@ -72,7 +74,7 @@ async function createSale(url){
     let listingPrice = await contract.getListingPrice()
     listingPrice = listingPrice.toString()
 
-    transaction = await contract.makeMarketItem(nftaddress, tokenId, price, {value: listingPrice})
+    transaction = await contract.makeMarketItem(nftAddress, tokenId, price, {value: listingPrice})
     await transaction.wait()
     router.push('./')
 }
