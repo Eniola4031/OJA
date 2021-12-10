@@ -1,6 +1,6 @@
 import {ethers} from 'ethers'
 import {useState} from 'react'
-import web3Modal from 'web3Modal'
+import Web3Modal from 'web3Modal'
 import {create as ipfsHttpClient} from 'ipfs-http-client'
 import{nftAddress, nftMarketAddress} from '../config'
 // in this component, we set the ipfs up to host out nft data of file storage
@@ -8,6 +8,8 @@ import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 //import {useRouter} from 'next/router'
 import {useRouter} from 'next/router'
 import Oja from '../artifacts/contracts/oja.sol/oja.json'
+
+
 
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0',)
@@ -29,7 +31,7 @@ export  default function mintItem(){
                  progress:(prog) => console.log(`received: ${prog}`)
              }
          )
-         const url = `https://ipfs.infura.io:5001/api/v0/${added.path}`
+         const url = `https://ipfs.infura.io/ipfs/${added.path}`
          setFileUrl(url)
             } catch (error){
                 console.log('error uploading file:', error)
@@ -45,7 +47,7 @@ async function createMarket(){
     })
     try{
            const  added= await client.add(data)
-        const url = `https://ipfs.infura.io:5001/api/v0/${added.path}`
+        const url = `https://ipfs.infura.io/ipfs${added.path}`
         //run a function that creates sale and passes in the url
         createSale(url)
            } catch (error){
@@ -57,14 +59,15 @@ async function createSale(url){
     //create the items and list them on the marketplace
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
-    const provider = new ethers.Web3Provider(connection)
+    const provider = new ethers.providers.Web3Provider(connection)
     //const provider = new ethers.providers.Web3Provider(web3.currentProvider)
     const signer = provider.getSigner()
             //we want to create the token
-    let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
+    let contract = new ethers.Contract(nftAddress, NFT.abi, signer)
     let transaction = await contract.mintToken(url)
     let tx = await transaction.wait()
     let event = tx.events[0]
+    //console.log('tx:', tx, 'event:', event)
     let value = event.args[2]
     let tokenId = value.toNumber()
     const price = ethers.utils.parseUnits(formInput.price, 'ether')

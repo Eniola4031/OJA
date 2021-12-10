@@ -94,9 +94,9 @@ uint currentIndex = 0;
 marketToken[] memory items = new marketToken[](unsoldItemCount);
 for(uint i=0;i< itemCount;i++){
     if(
-        tokenItems[i+1].owner == address(0)
+        tokenItems[i++].owner == address(0)
     ){
-        uint currentId = i + 1;
+        uint currentId = i ++;
         marketToken storage currentItem = tokenItems[currentId];
         items[currentIndex] = currentItem;
         currentIndex +=1;
