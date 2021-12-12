@@ -18,8 +18,8 @@ export default function Home() {
   async function loadNFTs(){
     //what we want to loD
     //***provider, tokenContract, marketContract, data for our marketItems***
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider)
-    //const provider = new ethers.providers.JsonRpcProvider()
+    //const provider = new ethers.providers.Web3Provider(web3.currentProvider)
+    const provider = new ethers.providers.JsonRpcProvider()
     const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftMarketAddress, Oja.abi, provider)
     const data = await marketContract.fetchMarketTokens()
