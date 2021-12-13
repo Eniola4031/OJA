@@ -1,6 +1,6 @@
-# Basic Sample Hardhat Project
+# NFT MarketPlace
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This project demonstrates a basic NFT Marketplace use case. It has some smart contract that enables users mint, buy and sell NFTs. Users can interact with these on the frontend
 
 Try running some of the following tasks:
 
