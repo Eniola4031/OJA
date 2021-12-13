@@ -21,8 +21,6 @@ const auctionPrice = ethers.utils.parseUnits('100','ether')
 //test for minting
 await nft.mintToken('https-t1')
 await nft.mintToken('https-t2')
-await nft.mintToken('https-t3')
-await nft.mintToken('https-t4')
 
 await market.makeMarketItem(nftContractAddress, 1, auctionPrice, {value: listingPrice})
 await market.makeMarketItem(nftContractAddress, 2, auctionPrice, {value: listingPrice})

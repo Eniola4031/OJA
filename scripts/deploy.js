@@ -1,4 +1,4 @@
-const hre = require("hardhat");
+const hre = require("hardhat")
 const fs = require('fs')
 
 
@@ -12,7 +12,7 @@ async function main() {
   const NFT = await hre.ethers.getContractFactory("NFT");
   const nft = await NFT.deploy(nftMarket.address);
   await nft.deployed();
-  console.log("NFT coontract deployed to:", nftMarket.address);
+  console.log("NFT contract deployed to:", nftMarket.address);
 
   let config = `
   export const nftMarketAddress = ${nftMarket.address}
